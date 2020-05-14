@@ -3,7 +3,7 @@
 // return the new state that the action has
 // brought about
 
-import {ADD_TODO, SET_VISIBILITY_FILTER, VisibilityFilters} from './actions';
+import {ADD_TODO, SET_VISIBILITY_FILTER, TOGGLE_TODO, VisibilityFilters} from './actions';
 
 const initialState = {
   visibilityFilter: VisibilityFilters.SHOW_ALL,
@@ -25,6 +25,16 @@ function todoApp(state = initialState, action) {
             completed: false
           }
         ],
+      })
+    case TOGGLE_TODO:
+      return Object.assign({}, state, {
+        todos: state.todos.map((todo, index) =>{
+          if(index === action.index){
+            return Object.assign({}, todo, {
+              completed: !todo.completed
+            })
+          }
+        })
       })
     default:
       return state
